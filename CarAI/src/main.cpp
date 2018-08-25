@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "Renderer.h"
+#include "PhysicsController.h"
 #include "GameObject.h"
 
 int main()
@@ -9,9 +10,13 @@ int main()
     
     // Do other stuff here
     Renderer renderer(&window);
+    PhysicsController physController;
+
     GameObject gobject("Test Object");
     gobject.SetTexture("C:\\dev\\CarAI\\CarAI\\resources\\testtex.jpg");
+
     renderer.AddObjectToRender(&gobject);
+    physController.AddMoveableObject(&gobject);
 
 
     // Main loop
@@ -25,6 +30,12 @@ int main()
                 window.close();
             }
         }
+        gobject.Move(Vector3(0.05f, -0.01f));
+
+
+
+
+        physController.Update();
         renderer.Draw();
     }
 
