@@ -1,10 +1,18 @@
 #include <SFML/Graphics.hpp>
 
+#include "Renderer.h"
+#include "GameObject.h"
+
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML Window");
+    sf::RenderWindow window(sf::VideoMode(1280, 720), "SFML Window");
     
     // Do other stuff here
+    Renderer renderer(&window);
+    GameObject gobject("Test Object");
+    gobject.SetTexture("C:\\dev\\CarAI\\CarAI\\resources\\testtex.jpg");
+    renderer.AddObjectToRender(&gobject);
+
 
     // Main loop
     while (window.isOpen())
@@ -17,8 +25,7 @@ int main()
                 window.close();
             }
         }
-        window.clear();
-        window.display();
+        renderer.Draw();
     }
 
     printf("\n\nPROGRAM IS CLOSING FROM MAIN\n");
