@@ -1,14 +1,14 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
-#include <queue>
+#include <vector>
 #include <SFML\Graphics.hpp>
 
 class Renderer
 {
 private:
     sf::RenderWindow* m_window;
-    std::queue<sf::Drawable*> m_objectsToDraw;
+    std::vector<sf::Drawable*> m_objectsToDraw;
 public:
     Renderer(sf::RenderWindow*);
     ~Renderer();

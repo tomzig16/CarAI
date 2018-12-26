@@ -1,8 +1,11 @@
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 #include "Renderer.h"
 #include "PhysicsController.h"
 #include "GameObject.h"
+#include "InputHandler.h"
+
 
 int main()
 {
@@ -11,6 +14,7 @@ int main()
     // Do other stuff here
     Renderer renderer(&window);
     PhysicsController physController;
+    InputHandler inputHandler;
 
     GameObject gobject("Test Object");
     gobject.SetTexture("C:\\dev\\CarAI\\CarAI\\resources\\testtex.jpg");
@@ -18,6 +22,7 @@ int main()
     renderer.AddObjectToRender(&gobject);
     physController.AddMoveableObject(&gobject);
 
+    inputHandler.AssignAction(Action::MOVE_DOWN, []() { std::cout << "Moving Down!" << std::endl; });
 
     // Main loop
     while (window.isOpen())
@@ -31,10 +36,7 @@ int main()
             }
         }
         gobject.Move(Vector3(0.05f, -0.01f));
-
-
-
-
+        inputHandler.HandleInputs();
         physController.Update();
         renderer.Draw();
     }
