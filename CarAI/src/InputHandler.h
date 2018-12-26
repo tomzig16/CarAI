@@ -17,7 +17,7 @@ private:
 public:
     InputHandler();
     ~InputHandler();
-
+    
     void AssignAction(Action action, void(*fToExecute)());
     void HandleInputs();
 };

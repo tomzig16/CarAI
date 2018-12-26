@@ -6,6 +6,9 @@
 #include "GameObject.h"
 #include "InputHandler.h"
 
+// Current InputHandler works only like that.
+// TODO think of a way to pass parameters
+GameObject gobject("Test Object");
 
 int main()
 {
@@ -16,13 +19,15 @@ int main()
     PhysicsController physController;
     InputHandler inputHandler;
 
-    GameObject gobject("Test Object");
+
     gobject.SetTexture("C:\\dev\\CarAI\\CarAI\\resources\\testtex.jpg");
 
     renderer.AddObjectToRender(&gobject);
-    physController.AddMoveableObject(&gobject);
-
-    inputHandler.AssignAction(Action::MOVE_DOWN, []() { std::cout << "Moving Down!" << std::endl; });
+    physController.AddMoveableObject(&gobject); 
+    inputHandler.AssignAction(Action::MOVE_UP, []() {    gobject.Move(Vector3( 0.0f,  0.5f)); });
+    inputHandler.AssignAction(Action::MOVE_LEFT, []() {  gobject.Move(Vector3(-0.5f,  0.0f)); });
+    inputHandler.AssignAction(Action::MOVE_DOWN, []() {  gobject.Move(Vector3( 0.0f, -0.5f)); });
+    inputHandler.AssignAction(Action::MOVE_RIGHT, []() { gobject.Move(Vector3( 0.5f,  0.0f)); });
 
     // Main loop
     while (window.isOpen())
@@ -35,7 +40,6 @@ int main()
                 window.close();
             }
         }
-        gobject.Move(Vector3(0.05f, -0.01f));
         inputHandler.HandleInputs();
         physController.Update();
         renderer.Draw();
